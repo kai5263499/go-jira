@@ -236,6 +236,11 @@ func RunTemplate(templateName string, data interface{}, out io.Writer) error {
 		out = os.Stdout
 	}
 
+	jsonStr, err := json.Marshal(data)
+	out.Write(jsonStr)
+	out.Write([]byte("\n"))
+	return err
+
 	var rawData interface{}
 	err = ConvertType(data, &rawData)
 	if err != nil {

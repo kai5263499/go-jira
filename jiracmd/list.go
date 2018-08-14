@@ -5,7 +5,7 @@ import (
 
 	"github.com/coryb/figtree"
 	"github.com/coryb/oreo"
-	"gopkg.in/Netflix-Skunkworks/go-jira.v1"
+	jira "gopkg.in/Netflix-Skunkworks/go-jira.v1"
 	"gopkg.in/Netflix-Skunkworks/go-jira.v1/jiracli"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )
@@ -34,7 +34,7 @@ func CmdListRegistry() *jiracli.CommandRegistryEntry {
 				opts.MaxResults = 500
 			}
 			if opts.QueryFields == "" {
-				opts.QueryFields = "assignee,created,priority,reporter,status,summary,updated,issuetype"
+				opts.QueryFields = "assignee,created,priority,reporter,status,summary,updated,issuetype,labels"
 			}
 			if opts.Sort == "" {
 				opts.Sort = "priority asc, key"
@@ -76,5 +76,6 @@ func CmdList(o *oreo.Client, globals *jiracli.GlobalOptions, opts *ListOptions) 
 	if err != nil {
 		return err
 	}
+
 	return opts.PrintTemplate(data)
 }
